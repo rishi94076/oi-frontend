@@ -5,9 +5,12 @@ function App() {
 
   useEffect(() => {
     fetch('/api/oi')
-      .then(res => res.json())
-      .then(data => setData(data))
-      .catch(err => console.error('Error fetching data:', err));
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("API Response:", data);
+        setData(data);
+      })
+      .catch((err) => console.error('Error fetching data:', err));
   }, []);
 
   return (
