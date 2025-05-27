@@ -1,18 +1,12 @@
 export default function handler(req, res) {
-  const data = {
+  const response = {
     support: 22000,
     resistance: 22500,
     signal: "Buy",
+    lastUpdated: new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    }),
   };
-  res.status = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(data));
+
+  res.status(200).json(response);
 }
-const response = {
-  support: 22000,
-  resistance: 22500,
-  signal: "Buy",
-  lastUpdated: new Date().toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata",
-  }),
-};
