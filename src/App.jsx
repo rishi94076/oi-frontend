@@ -13,7 +13,7 @@ function App() {
         setSupport(data.support);
         setResistance(data.resistance);
         setSignal(data.signal);
-        setLastUpdated(data.lastUpdated); // ✅ Time
+        setLastUpdated(data.lastUpdated);
       });
   }, []);
 
@@ -21,7 +21,7 @@ function App() {
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h1>📊 OI Chain Signals</h1>
       <p>🟢 Support: {support}</p>
-      <p🔴>Resistance: {resistance}</p>
+      <p>🔴 Resistance: {resistance}</p>
       <p>📈 Signal: <strong>{signal}</strong></p>
       {lastUpdated && <p>🕒 Last Updated: {lastUpdated}</p>}
     </div>
