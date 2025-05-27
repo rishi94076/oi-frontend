@@ -1,8 +1,10 @@
-export default function handler(req, res) {
-  res.status(200).json({
-    message: "OI Chain backend working!",
+export default async function handler(req, res) {
+  // Dummy data for now
+  const data = {
     support: 22000,
-    resistance: 22600,
-    signal: "Buy"
-  });
+    resistance: 22500,
+    signal: "Buy",
+  };
+
+  res.status(200).json(data);
 }
