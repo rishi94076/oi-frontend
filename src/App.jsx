@@ -14,9 +14,9 @@ function App() {
       <h1 className="text-3xl font-bold">OI Chain Signals</h1>
       {data ? (
         <div className="mt-6 text-xl">
-          <p>Support: {data.support}</p>
-          <p>Resistance: {data.resistance}</p>
-          <p>Signal: <strong>{data.signal}</strong></p>
+          <p>🟢Support: {data.support}</p>
+          <p>🔴Resistance: {data.resistance}</p>
+          <p>📈Signal: <strong>{data.signal}</strong></p>
         </div>
       ) : (
         <p>Loading...</p>
