@@ -5,13 +5,17 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("https://nse-data-api.vercel.app/api/oi?symbol=NIFTY");
-      const json = await res.json();
-      setData(json);
+      try {
+        const res = await fetch("https://nse-data-api.vercel.app/api/oi?symbol=NIFTY");
+        const json = await res.json();
+        setData(json);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 60000); // every 1 min
+    const interval = setInterval(fetchData, 60000);
     return () => clearInterval(interval);
   }, []);
 
