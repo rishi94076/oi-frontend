@@ -1,29 +1,26 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  const [support, setSupport] = useState(null);
-  const [resistance, setResistance] = useState(null);
-  const [signal, setSignal] = useState("");
-  const [lastUpdated, setLastUpdated] = useState("");
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     fetch("/api/oi")
       .then((res) => res.json())
-      .then((data) => {
-        setSupport(data.support);
-        setResistance(data.resistance);
-        setSignal(data.signal);
-        setLastUpdated(data.lastUpdated);
-      });
+      .then((d) => setData(d));
   }, []);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>📊 OI Chain Signals</h1>
-      <p>🟢 Support: {support}</p>
-      <p>🔴 Resistance: {resistance}</p>
-      <p>📈 Signal: <strong>{signal}</strong></p>
-      {lastUpdated && <p>🕒 Last Updated: {lastUpdated}</p>}
+    <div className="text-center mt-10">
+      <h1 className="text-3xl font-bold">OI Chain Signals</h1>
+      {data ? (
+        <div className="mt-6 text-xl">
+          <p>Support: {data.support}</p>
+          <p>Resistance: {data.resistance}</p>
+          <p>Signal: <strong>{data.signal}</strong></p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
