@@ -8,6 +8,7 @@ function App() {
       try {
         const res = await fetch("https://nse-data-api.vercel.app/api/oi?symbol=NIFTY");
         const json = await res.json();
+        console.log("Fetched Data:", data); 
         setData(json);
       } catch (error) {
         console.error("Error fetching data:", error);
