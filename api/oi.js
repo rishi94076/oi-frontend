@@ -1,4 +1,3 @@
-// api/oi.js
 export default async function handler(req, res) {
   try {
     const response = await fetch("https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY", {
@@ -9,13 +8,17 @@ export default async function handler(req, res) {
       },
     });
 
+    if (!response.ok) {
+      return res.status(500).json({ error: "Failed to fetch from NSE" });
+    }
+
     const data = await response.json();
     const records = data.records.data;
 
     let maxCallOi = 0, resistance = 0;
     let maxPutOi = 0, support = 0;
 
-    for (let item of records) {
+    for (const item of records) {
       const ce = item.CE;
       const pe = item.PE;
 
@@ -34,6 +37,6 @@ export default async function handler(req, res) {
 
     res.status(200).json({ support, resistance, signal });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch data" });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
