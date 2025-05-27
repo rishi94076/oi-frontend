@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("/api/oi")
-      .then((res) => res.json())
-      .then((d) => setData(d));
+    const fetchData = async () => {
+      const res = await fetch("https://nse-data-api.vercel.app/api/oi?symbol=NIFTY");
+      const json = await res.json();
+      setData(json);
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 60000); // every 1 min
+    return () => clearInterval(interval);
   }, []);
 
+  if (!data) return <h2>Loading OI data...</h2>;
+
   return (
-    <div className="text-center mt-10">
-      <h1 className="text-3xl font-bold">OI Chain Signals</h1>
-      {data ? (
-        <div className="mt-6 text-xl">
-          <p>🟢Support: {data.support}</p>
-          <p>🔴Resistance: {data.resistance}</p>
-          <p>📈Signal: <strong>{data.signal}</strong></p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>📊 OI Chain Signals</h1>
+      <p><strong>Support:</strong> {data.support}</p>
+      <p><strong>Resistance:</strong> {data.resistance}</p>
+      <p><strong>Signal:</strong> {data.signal}</p>
     </div>
   );
 }
