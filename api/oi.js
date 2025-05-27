@@ -1,16 +1,9 @@
-// /api/oi.js
 export default async function handler(req, res) {
   try {
-    const response = await fetch("https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY", {
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-        "Accept": "application/json",
-        "Referer": "https://www.nseindia.com/",
-      },
-    });
-
+    const response = await fetch("https://nse-api.vercel.app/api/option-chain?symbol=NIFTY");
     const data = await response.json();
-    const records = data.records.data;
+
+    const records = data.optionChain;
 
     let maxCallOi = 0;
     let resistance = 0;
