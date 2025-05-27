@@ -8,3 +8,11 @@ export default function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(data));
 }
+const response = {
+  support: 22000,
+  resistance: 22500,
+  signal: "Buy",
+  lastUpdated: new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  }),
+};
