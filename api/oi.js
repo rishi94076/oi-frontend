@@ -4,5 +4,7 @@ export default function handler(req, res) {
     resistance: 22500,
     signal: "Buy",
   };
-  res.status(200).json(data);
+  res.status = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(data));
 }
