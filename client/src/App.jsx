@@ -2,6 +2,7 @@ import { useState } from 'react';
 import OptionsChain from './components/OptionsChain';
 import Signals from './components/Signals';
 import Chart from './components/Chart';
+import NiftyIndex from './components/NiftyIndex';
 
 function App() {
   const [symbol, setSymbol] = useState('AAPL');
@@ -19,6 +20,7 @@ function App() {
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <NiftyIndex />
         <OptionsChain symbol={symbol} />
         <Signals symbol={symbol} />
         <Chart symbol={symbol} />
