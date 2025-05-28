@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import { Chart as ChartJS } from 'chart.js/auto';
 
 function Chart({ symbol }) {
   const chartRef = useRef(null);
@@ -14,7 +14,7 @@ function Chart({ symbol }) {
     }
 
     const ctx = chartRef.current.getContext('2d');
-    chartInstance.current = new Chart(ctx, {
+    chartInstance.current = new ChartJS(ctx, {
       type: 'line',
       data: {
         labels,
