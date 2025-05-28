@@ -15,7 +15,7 @@ function Chart({ symbol }) {
     }
 
     const ctx = chartRef.current.getContext('2d');
-    chartInstance.current = new ChartJS(ctx, {
+    chartInstance.current = new ChartJS(ctx,...) {
       type: 'line',
       data: {
         labels,
