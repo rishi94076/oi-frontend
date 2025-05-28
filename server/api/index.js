@@ -7,10 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Nifty 50 Index Data Endpoint
+// Nifty 50 Index Data Endpoint with Support, Resistance, and Signals
 app.get('/nifty50', async (req, res) => {
   try {
     const quote = await yahooFinance.quote('^NSEI');
+    
+    // Basic Nifty 50 data
     const niftyData = {
       price: quote.regularMarketPrice,
       change: quote.regularMarketChange,
@@ -20,6 +22,29 @@ app.get('/nifty50', async (req, res) => {
       volume: quote.regularMarketVolume,
       timestamp: new Date(quote.regularMarketTime * 1000).toISOString(),
     };
+
+    // Calculate Support and Resistance using Pivot Points
+    const high = quote.regularMarketDayHigh;
+    const low = quote.regularMarketDayLow;
+    const close = quote.regularMarketPreviousClose; // Previous day's close
+    const pivot = (high + low + close) / 3;
+    const support = pivot - (high - low) / 2;
+    const resistance = pivot + (high - low) / 2;
+
+    // Add support and resistance to the response
+    niftyData.support = support;
+    niftyData.resistance = resistance;
+
+    // Generate Buy/Sell Signal
+    const currentPrice = quote.regularMarketPrice;
+    let signal = 'Hold';
+    if (currentPrice > resistance) {
+      signal = 'Sell';
+    } else if (currentPrice < support) {
+      signal = 'Buy';
+    }
+    niftyData.signal = signal;
+
     res.json(niftyData);
   } catch (error) {
     console.error('Error fetching Nifty 50 data:', error);
