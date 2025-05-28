@@ -29,6 +29,9 @@ function NiftyIndex() {
       <p><strong>Day High:</strong> {niftyData.dayHigh.toFixed(2)}</p>
       <p><strong>Day Low:</strong> {niftyData.dayLow.toFixed(2)}</p>
       <p><strong>Volume:</strong> {niftyData.volume}</p>
+      <p><strong>Support:</strong> {niftyData.support.toFixed(2)}</p>
+      <p><strong>Resistance:</strong> {niftyData.resistance.toFixed(2)}</p>
+      <p><strong>Signal:</strong> <span className={niftyData.signal === 'Buy' ? 'text-green-600' : niftyData.signal === 'Sell' ? 'text-red-600' : 'text-gray-600'}>{niftyData.signal}</span></p>
       <p><strong>Last Updated:</strong> {new Date(niftyData.timestamp).toLocaleString()}</p>
     </div>
   );
