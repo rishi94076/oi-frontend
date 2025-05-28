@@ -1,17 +1,36 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const yahooFinance = require('yahoo-finance2').default;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY;
+// Nifty 50 Index Data Endpoint
+app.get('/nifty50', async (req, res) => {
+  try {
+    const quote = await yahooFinance.quote('^NSEI');
+    const niftyData = {
+      price: quote.regularMarketPrice,
+      change: quote.regularMarketChange,
+      changePercent: quote.regularMarketChangePercent,
+      dayHigh: quote.regularMarketDayHigh,
+      dayLow: quote.regularMarketDayLow,
+      volume: quote.regularMarketVolume,
+      timestamp: new Date(quote.regularMarketTime * 1000).toISOString(),
+    };
+    res.json(niftyData);
+  } catch (error) {
+    console.error('Error fetching Nifty 50 data:', error);
+    res.status(500).json({ error: 'Failed to fetch Nifty 50 data' });
+  }
+});
 
+// Options Chain Endpoint (Existing)
 app.get('/options', async (req, res) => {
   const { symbol } = req.query;
   try {
-    // Mock data (replace with real Alpha Vantage API call)
     const options = [
       { strike: 100, type: 'Call', lastPrice: 5.0, volume: 1000 },
       { strike: 105, type: 'Put', lastPrice: 4.5, volume: 800 },
@@ -23,14 +42,14 @@ app.get('/options', async (req, res) => {
   }
 });
 
+// Signals Endpoint (Existing)
 app.get('/signals', async (req, res) => {
   const { symbol } = req.query;
   try {
-    // Mock price data (replace with real API data)
     const high = 110, low = 90, close = 100;
     const support = (high + low + close) / 3 - (high - low) / 2;
     const resistance = (high + low + close) / 3 + (high - low) / 2;
-    const currentPrice = 105; // Replace with real-time price
+    const currentPrice = 105;
     const signal = currentPrice > resistance ? 'Sell' : currentPrice < support ? 'Buy' : 'Hold';
 
     res.json({ support, resistance, signal });
