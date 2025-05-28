@@ -7,7 +7,7 @@ function StockChart({ symbol }) {
 
   useEffect(() => {
     const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
-    const data = [100, 110, 105, 115, 120]; // Mock data, API se replace kar sakta hai
+    const data = [100, 110, 105, 115, 120];
 
     if (chartInstance.current) {
       chartInstance.current.destroy();
