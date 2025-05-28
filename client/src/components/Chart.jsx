@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { Chart as ChartJS } from 'chart.js/auto';
+import { Chart as ChartJS } from 'chart.js';
+import 'chart.js/auto';
 
 function Chart({ symbol }) {
   const chartRef = useRef(null);
